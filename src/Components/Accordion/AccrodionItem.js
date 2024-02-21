@@ -1,10 +1,13 @@
-import { useState } from "react";
-
-export default function AccrodionItem({ title, text, num }) {
-  const [isOpen, setIsOpen] = useState(false);
-
+export default function AccrodionItem({
+  title,
+  children,
+  num,
+  currentOpen,
+  onOpen,
+}) {
+  const isOpen = num === currentOpen;
   function handleToggle() {
-    setIsOpen((isOpen) => !isOpen);
+    onOpen(isOpen ? null : num);
   }
 
   return (
@@ -12,7 +15,7 @@ export default function AccrodionItem({ title, text, num }) {
       <p className="number">{num < 9 ? `0${num + 1}` : num + 1}</p>
       <p className="title">{title}</p>
       <p className="icon">{isOpen ? "-" : "+"}</p>
-      {isOpen && <div className="content-box">{text}</div>}{" "}
+      {isOpen && <div className="content-box">{children}</div>}{" "}
     </div>
   );
 }

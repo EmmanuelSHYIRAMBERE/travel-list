@@ -1,3 +1,4 @@
+import { useState } from "react";
 import AccrodionItem from "./AccrodionItem";
 import "./accrordionStyles.css";
 
@@ -29,16 +30,21 @@ const frequentlyAskedQuestions = [
 ];
 
 export default function Accordion() {
+  const [currentOpen, setCurrentOpen] = useState(null);
+
   return (
     <div>
       <div className="accrodion">
         {frequentlyAskedQuestions.map((element, index) => (
           <AccrodionItem
-            title={element.title}
-            text={element.text}
-            num={index}
             key={element.title}
-          />
+            num={index}
+            currentOpen={currentOpen}
+            onOpen={setCurrentOpen}
+            title={element.title}
+          >
+            {element.text}
+          </AccrodionItem>
         ))}
       </div>
     </div>
